@@ -1,0 +1,108 @@
+html {
+  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+body {
+  height: 100%;
+  font-family: var(--bs-font-sans-serif);
+  font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    width: 100% ;
+    background-color: #F5F5F5;
+}
+
+form {
+  box-sizing: border-box;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-floating>.form-control {
+  padding: 1rem .75rem;
+}
+
+.form-floating>.form-control, .form-floating>.form-select {
+  height: calc(3.5rem + 2px);
+  line-height: 1.25;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-floating {
+  position: relative;
+}
+
+.form-control {
+  font-size: 1rem;
+  font-weight: 400;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  background-clip: padding-box;
+  display: block;
+  width: 100%;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+  
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+input{
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+
+.btn-lg {
+  padding: .5rem 1rem;
+  font-size: 1.25rem;
+  border-radius: .3rem;
+}
+
+.fw-normal {
+  font-weight: 400 !important;
+}
+
+.w-100 {
+  width: 100% ;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: rgb(57,69,186);
+  margin-top: 25px;
+}
+

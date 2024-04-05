@@ -1,0 +1,21 @@
+
+
+div {
+    display: block;
+}
+
+.navbar {
+    background-color: #3945BA;
+}
+
+.bi-heart-pulse-fill {
+    margin-left: 25px;
+}
+
+text {
+    font-weight: bolder;
+}
+
+.form-inline {
+    margin-top: 16px;
+}
