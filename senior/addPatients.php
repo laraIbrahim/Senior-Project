@@ -17,6 +17,7 @@ if (isset($_GET['name'], $_GET['roomNb'])) {
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
+    
 } 
 
 // Close connection
