@@ -46,7 +46,7 @@ $con->close();
       <input type="text" name="name" class="form-control" id="name" placeholder="Pateint name">
     </div>
     <div class="form-floating">
-      <input type="password" name="roomNb" class="form-control" id="roomNb" placeholder="Room number">
+      <input type="text" name="roomNb" class="form-control" id="roomNb" placeholder="Room number">
     </div>
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Add</button>
