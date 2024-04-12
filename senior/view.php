@@ -114,12 +114,12 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                 </div>
-                <!-- <script>
-                  //  Refresh the page every second
+                <script>
+                  //  Refresh the page every 5 seconds
                     setInterval(function() {
                         location.reload();
-                    }, 1000);
-                </script> -->
+                    }, 5000);
+                </script>
             </body>
 
             </html>
