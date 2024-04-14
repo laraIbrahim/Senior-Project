@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -111,6 +112,11 @@
         </div>
       </div>
     </div>
+    <script>
+      setTimeout(function() { //reload page every 5 seconds
+        window.location.reload();
+      }, 5000);
+    </script>
   </main>
 
   <footer class="text-muted py-5">
