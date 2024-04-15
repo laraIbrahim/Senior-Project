@@ -126,10 +126,10 @@ if (isset($_GET['id'])) {
                     checkVitalSigns(<?php echo $body_temp; ?>, <?php echo $oxygen_level; ?>, <?php echo $heart_rate; ?>);
                 </script>
                 <script>
-                  //  Refresh the page every 5 seconds
+                  //  Refresh the page every 15 seconds
                     setInterval(function() {
                         location.reload();
-                    }, 5000);
+                    }, 15000);
                 </script>
             </body>
 
