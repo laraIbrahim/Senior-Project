@@ -40,6 +40,7 @@
         font-size: 3.5rem;
       }
     }
+
   </style>
 
 
@@ -75,9 +76,9 @@
     </section>
 
     <div class="album py-5 bg-light">
-      <div class="container">
+      <div class="container" >
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" >
 
           <?php
           require_once 'connect.php';
@@ -88,9 +89,10 @@
           while ($row = mysqli_fetch_assoc($result)) {
 
 
-            echo '<div class="col">';
-            echo '<div class="card shadow-sm">';
-            echo '<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#7E89FD"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" >' . $row['name'] . '</text></svg>';
+
+            echo '<div class="col"  id="con">';
+            echo '<div class="card shadow-sm" >';
+            echo '<svg class="bd-placeholder-img card-img-top"  width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#7E89FD" ></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" >' . $row['name'] . '</text></svg>';
 
             echo '<div class="card-body">';
             echo '<div class="d-flex justify-content-between align-items-center">';
@@ -107,18 +109,32 @@
             echo '</div>';
             echo '</div>';
             echo '</div>';
+
+            
+            $oxygen_level = $row['oxygen_level'];
+            $heart_rate = $row['heart_rate'];
+            $body_temp = $row['body_temp'];
           }
           ?>
         </div>
       </div>
     </div>
-    <script>
-      setTimeout(function() { //reload page every 5 seconds
-        window.location.reload();
-      }, 5000);
-    </script>
+   
   </main>
-
+<script>
+                    // Function to check vital signs and trigger beep sound if out of range
+                    function checkVitalSigns(temperature, oxygenLevel, heartRate) {
+                      console.log("We're here");
+                      console.log(temperature);
+                        // Check temperature, oxygen level, and heart rate
+                        if (temperature < 36 || temperature > 38 || oxygenLevel < 90 || oxygenLevel > 100 || heartRate < 60 || heartRate > 100) {
+                            // Trigger beep sound
+                            document.getElementById('con').style.backgroundColor="red";
+                        }
+                    }
+                    // Call the function with the provided vital signs
+                    checkVitalSigns(<?php echo $body_temp; ?>, <?php echo $oxygen_level; ?>, <?php echo $heart_rate; ?>);
+                </script>
   <footer class="text-muted py-5">
     <div class="container">
       <p class="float-end mb-1">

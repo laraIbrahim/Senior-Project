@@ -1,5 +1,4 @@
 <?php
-
 require_once 'connect.php';
 
 // Check if patient ID is provided
@@ -85,9 +84,9 @@ if (isset($_GET['id'])) {
             </head>
 
             <body>
-                <div class="container">
+                <div class="container" id="con">
                     <h1 style="text-align: center;">Patient Details</h1>
-                    <div class="details">
+                    <div class="details" >
                         <div class="item">
                             <span class="label"><i class="fas fa-id-badge icon"></i></span>
                             <span class="value"><?php echo $patient_id; ?></span>
@@ -114,6 +113,18 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                 </div>
+                <script>
+                    // Function to check vital signs and trigger beep sound if out of range
+                    function checkVitalSigns(temperature, oxygenLevel, heartRate) {
+                        // Check temperature, oxygen level, and heart rate
+                        if (temperature < 36 || temperature > 38 || oxygenLevel < 90 || oxygenLevel > 100 || heartRate < 60 || heartRate > 100) {
+                            // Trigger beep sound
+                            document.getElementById('con').style.backgroundColor="red";
+                        }
+                    }
+                    // Call the function with the provided vital signs
+                    checkVitalSigns(<?php echo $body_temp; ?>, <?php echo $oxygen_level; ?>, <?php echo $heart_rate; ?>);
+                </script>
                 <script>
                   //  Refresh the page every 5 seconds
                     setInterval(function() {
