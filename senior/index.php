@@ -10,8 +10,6 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
-
-
   <!-- Bootstrap core CSS -->
   <link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -24,7 +22,6 @@
   <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
   <link rel="stylesheet" href="style.css">
   <meta name="theme-color" content="#7952b3">
-
 
   <style>
     .bd-placeholder-img {
@@ -87,13 +84,22 @@
           $result = mysqli_query($con, $getPatientData);
 
           while ($row = mysqli_fetch_assoc($result)) {
+            // Store vital signs for the current patient
+            $oxygen_level = $row['oxygen_level'];
+            $heart_rate = $row['heart_rate'];
+            $body_temp = $row['body_temp'];
 
+            // Check if vitals are out of range
+            $card_class = ''; // default class
+            if ($body_temp < 36 || $body_temp > 38 || $oxygen_level < 90 || $oxygen_level > 100 || $heart_rate < 60 || $heart_rate > 100) {
+                // If out of range, set the background color to red
+                $card_class = 'bg-danger';
+            }
 
-
-            echo '<div class="col"  id="con">';
-            echo '<div class="card shadow-sm" >';
-            echo '<svg class="bd-placeholder-img card-img-top"  width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#7E89FD" ></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" >' . $row['name'] . '</text></svg>';
-
+            // Output patient card
+            echo '<div class="col">';
+            echo '<div class="card shadow-sm">';
+            echo '<svg class="bd-placeholder-img card-img-top " width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="' . ($card_class ? 'red' : '#7E89FD') . '" ></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" >' . $row['name'] . '</text></svg>';
             echo '<div class="card-body">';
             echo '<div class="d-flex justify-content-between align-items-center">';
             echo '<div class="btn-group">';
@@ -106,35 +112,17 @@
             echo '<p>' . $row['room_no'] . '</p>';
             echo '</div>';
             echo '</div>';
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-
-            
-            $oxygen_level = $row['oxygen_level'];
-            $heart_rate = $row['heart_rate'];
-            $body_temp = $row['body_temp'];
-          }
-          ?>
+            echo '</div>'; // Close card-body
+            echo '</div>'; // Close card
+            echo '</div>'; // Close col
+        }
+        ?>
         </div>
       </div>
     </div>
    
   </main>
-<script>
-                    // Function to check vital signs and trigger beep sound if out of range
-                    function checkVitalSigns(temperature, oxygenLevel, heartRate) {
-                      console.log("We're here");
-                      console.log(temperature);
-                        // Check temperature, oxygen level, and heart rate
-                        if (temperature < 36 || temperature > 38 || oxygenLevel < 90 || oxygenLevel > 100 || heartRate < 60 || heartRate > 100) {
-                            // Trigger beep sound
-                            document.getElementById('con').style.backgroundColor="red";
-                        }
-                    }
-                    // Call the function with the provided vital signs
-                    checkVitalSigns(<?php echo $body_temp; ?>, <?php echo $oxygen_level; ?>, <?php echo $heart_rate; ?>);
-                </script>
+
   <footer class="text-muted py-5">
     <div class="container">
       <p class="float-end mb-1">
@@ -146,7 +134,6 @@
 
   <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="index.js" charset="utf-8"></script>
-
 
 </body>
 
