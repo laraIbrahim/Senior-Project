@@ -134,7 +134,12 @@
 
   <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="index.js" charset="utf-8"></script>
-
+  <script>
+                  //  Refresh the page every 5 seconds
+                    setInterval(function() {
+                        location.reload();
+                    }, 5000);
+                </script>
 </body>
 
 </html>
