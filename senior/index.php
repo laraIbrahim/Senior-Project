@@ -37,14 +37,10 @@
         font-size: 3.5rem;
       }
     }
-
   </style>
-
-
 </head>
 
 <body>
-
   <header>
     <nav class="navbar navbar-light shadow-sm">
       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFFFFF" class="bi bi-heart-pulse-fill" viewBox="0 0 16 16">
@@ -73,10 +69,10 @@
     </section>
 
     <div class="album py-5 bg-light">
-      <div class="container" >
+      <div class="container">
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" >
-
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <audio id="beepSound" src="beep.mp3"></audio>
           <?php
           require_once 'connect.php';
 
@@ -92,8 +88,12 @@
             // Check if vitals are out of range
             $card_class = ''; // default class
             if ($body_temp < 36 || $body_temp > 38 || $oxygen_level < 90 || $oxygen_level > 100 || $heart_rate < 60 || $heart_rate > 100) {
-                // If out of range, set the background color to red
-                $card_class = 'bg-danger';
+              // If out of range, set the background color to red
+              $card_class = 'bg-danger';
+              // Add JavaScript to play the beep sound
+              echo '<script>
+                       document.getElementById("beepSound").play();
+                    </script>';
             }
 
             // Output patient card
@@ -115,12 +115,12 @@
             echo '</div>'; // Close card-body
             echo '</div>'; // Close card
             echo '</div>'; // Close col
-        }
-        ?>
+          }
+          ?>
         </div>
       </div>
     </div>
-   
+
   </main>
 
   <footer class="text-muted py-5">
@@ -135,11 +135,13 @@
   <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="index.js" charset="utf-8"></script>
   <script>
-                  //  Refresh the page every 5 seconds
-                    setInterval(function() {
-                        location.reload();
-                    }, 5000);
-                </script>
+    //  Refresh the page every 5 seconds
+    setInterval(function() {
+      location.reload();
+    }, 5000);
+  </script>
+
+
 </body>
 
 </html>
