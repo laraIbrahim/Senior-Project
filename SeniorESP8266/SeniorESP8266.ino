@@ -307,4 +307,3 @@ void loop() {
   getTempVitals();
   checkVitalsAndActivateBuzzer();
   insertPatientVitals();
-}
