@@ -38,6 +38,7 @@ if (isset($_POST['username']) && isset($_POST['password'])){
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 
+
     
 
     <!-- Bootstrap core CSS -->
@@ -71,25 +72,28 @@ if (isset($_POST['username']) && isset($_POST['password'])){
 
     
     <!-- Custom styles for this template -->
-    <link href="login.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   </head>
-  <body class="text-center">
+ 
     
-<main class="form-signin">
-  <form method="post">
-    
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
-    <div class="form-floating">
-      <input type="text" name="username" class="form-control" id="username" placeholder="username">
+  <body>
+    <div class="wrapper">
+        <form method="post">
+            <h1>Please Sign in</h1>
+            <div class="input-box">
+                <input type="text" placeholder="username"  name="username" class="form-control" id="username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="password" name="password" class="form-control" id="password" required>
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
     </div>
-    <div class="form-floating">
-      <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-    </div>
-
-    <button class="w-100 btn btn-lg btn-primary" type="submit">log in</button>
-    
-  </form>
-</main>
 </body>
+
+
 </html>
