@@ -73,7 +73,7 @@ void setup() {
   // Print a message to the LCD.
   lcd.backlight();
 
-  WiFi.begin(ssid, password); //connect to wifi
+  WiFi.begin(ssid, password);  //connect to wifi
   Serial.println("Connecting");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -180,13 +180,13 @@ void getPOXVitals() {
     for (;;)
       ;
   } else {
-    Serial.println("INITIALIZED"); // If initialization succeeds, print a confirmation message
-  } 
-  pox.setIRLedCurrent(MAX30102_LED_CURR_14_2MA); // The default current for the IR LED is 50mA and is changed here to 14
-  unsigned long currentMillis = millis(); // millis() It returns the number of milliseconds elapsed since it reached getPOXVitals
+    Serial.println("INITIALIZED");  // If initialization succeeds, print a confirmation message
+  }
+  pox.setIRLedCurrent(MAX30102_LED_CURR_14_2MA);  // The default current for the IR LED is 50mA and is changed here to 14
+  unsigned long currentMillis = millis();         // millis() It returns the number of milliseconds elapsed since it reached getPOXVitals
   unsigned long previousMillis = millis();
-  int interval = 30000; // Set reporting interval to 30 seconds
-  while (currentMillis - previousMillis <= interval) { // Loop to continuously update sensor readings
+  int interval = 30000;                                 // Set reporting interval to 30 seconds
+  while (currentMillis - previousMillis <= interval) {  // Loop to continuously update sensor readings
     // Make sure to call update as fast as possible
     pox.update();
     // long irValue = pox.getHeartRate();
@@ -227,7 +227,7 @@ void getPOXVitals() {
   }
 }
 
-void getTempVitals() { //reading the temperature from a temperature sensor, displaying it on an LCD screen, and printing it to the serial monitor
+void getTempVitals() {  //reading the temperature from a temperature sensor, displaying it on an LCD screen, and printing it to the serial monitor
   lcd.setCursor(0, 3);
   lcd.print("Temp: ");
   Serial.println("Reading temperature");
@@ -246,7 +246,7 @@ void getTempVitals() { //reading the temperature from a temperature sensor, disp
   Serial.println(tempC);
 }
 
-void checkVitalsAndActivateBuzzer() { //monitor the vital signs of a patient and activate a buzzer if any of the vital signs fall outside certain predefined ranges.
+void checkVitalsAndActivateBuzzer() {  //monitor the vital signs of a patient and activate a buzzer if any of the vital signs fall outside certain predefined ranges.
   if (tempC < 34 || tempC > 38 || spO2 < 90 || heartRate < 60 || heartRate > 100) {
     Serial.print("Temp: ");
     Serial.print(tempC);
@@ -257,16 +257,28 @@ void checkVitalsAndActivateBuzzer() { //monitor the vital signs of a patient and
     pinMode(D7, OUTPUT);
     digitalWrite(D7, HIGH);  //turn buzzer on
     Serial.println("Buzzer On");
-    delay(2000); //2 seconds
+    delay(2000);            //2 seconds
+    digitalWrite(D7, LOW);  //turn buzzer off
+    Serial.println("Buzzer Off");
+    delay(2000);
+    digitalWrite(D7, HIGH);  //turn buzzer on
+    Serial.println("Buzzer On");
+    delay(2000);            //2 seconds
+    digitalWrite(D7, LOW);  //turn buzzer off
+    Serial.println("Buzzer Off");
+    delay(2000);
+    digitalWrite(D7, HIGH);  //turn buzzer on
+    Serial.println("Buzzer On");
+    delay(2000);            //2 seconds
     digitalWrite(D7, LOW);  //turn buzzer off
     Serial.println("Buzzer Off");
   }
 }
 
-void insertPatientVitals() { // this function handles the process of sending patient vitals data to the server via an HTTP POST request,
+void insertPatientVitals() {  // this function handles the process of sending patient vitals data to the server via an HTTP POST request,
   Serial.println("Inserting Data");
-  if (WiFi.status() == WL_CONNECTED) { // Check if WiFi is connected
-  // If WiFi is connected, proceed with sending data
+  if (WiFi.status() == WL_CONNECTED) {  // Check if WiFi is connected
+                                        // If WiFi is connected, proceed with sending data
     WiFiClient client;
     HTTPClient http;
 
@@ -293,8 +305,7 @@ void insertPatientVitals() { // this function handles the process of sending pat
     // Free resources after completing HTTP request
     http.end();
   } else {
-    Serial.println("WiFi Disconnected"); // If WiFi is not connected, print a message to the serial monitor
-
+    Serial.println("WiFi Disconnected");  // If WiFi is not connected, print a message to the serial monitor
   }
 }
 
