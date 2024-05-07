@@ -73,7 +73,7 @@ void setup() {
   // Print a message to the LCD.
   lcd.backlight();
 
-  WiFi.begin(ssid, password);
+  WiFi.begin(ssid, password); //connect to wifi
   Serial.println("Connecting");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -175,19 +175,18 @@ void getPatientIdByKeypad() {
 }
 
 void getPOXVitals() {
-  if (!pox.begin()) {
-    Serial.println("MAX30102 ERROR");
+  if (!pox.begin()) {  // If initialization fails, print an error message and enter an infinite loop
+    Serial.println("MAX30100 ERROR");
     for (;;)
       ;
   } else {
-    Serial.println("INITIALIZED");
-  }
-  // The default current for the IR LED is 50mA and is changed below
-  pox.setIRLedCurrent(MAX30102_LED_CURR_14_2MA);
-  unsigned long currentMillis = millis();
+    Serial.println("INITIALIZED"); // If initialization succeeds, print a confirmation message
+  } 
+  pox.setIRLedCurrent(MAX30102_LED_CURR_14_2MA); // The default current for the IR LED is 50mA and is changed here to 14
+  unsigned long currentMillis = millis(); // millis() It returns the number of milliseconds elapsed since it reached getPOXVitals
   unsigned long previousMillis = millis();
-  int interval = 30000;
-  while (currentMillis - previousMillis <= interval) {
+  int interval = 30000; // Set reporting interval to 30 seconds
+  while (currentMillis - previousMillis <= interval) { // Loop to continuously update sensor readings
     // Make sure to call update as fast as possible
     pox.update();
     // long irValue = pox.getHeartRate();
@@ -228,7 +227,7 @@ void getPOXVitals() {
   }
 }
 
-void getTempVitals() {
+void getTempVitals() { //reading the temperature from a temperature sensor, displaying it on an LCD screen, and printing it to the serial monitor
   lcd.setCursor(0, 3);
   lcd.print("Temp: ");
   Serial.println("Reading temperature");
@@ -247,7 +246,7 @@ void getTempVitals() {
   Serial.println(tempC);
 }
 
-void checkVitalsAndActivateBuzzer() {
+void checkVitalsAndActivateBuzzer() { //monitor the vital signs of a patient and activate a buzzer if any of the vital signs fall outside certain predefined ranges.
   if (tempC < 34 || tempC > 38 || spO2 < 90 || heartRate < 60 || heartRate > 100) {
     Serial.print("Temp: ");
     Serial.print(tempC);
@@ -258,15 +257,16 @@ void checkVitalsAndActivateBuzzer() {
     pinMode(D7, OUTPUT);
     digitalWrite(D7, HIGH);  //turn buzzer on
     Serial.println("Buzzer On");
-    delay(2000);
+    delay(2000); //2 seconds
     digitalWrite(D7, LOW);  //turn buzzer off
     Serial.println("Buzzer Off");
   }
 }
 
-void insertPatientVitals() {
+void insertPatientVitals() { // this function handles the process of sending patient vitals data to the server via an HTTP POST request,
   Serial.println("Inserting Data");
-  if (WiFi.status() == WL_CONNECTED) {
+  if (WiFi.status() == WL_CONNECTED) { // Check if WiFi is connected
+  // If WiFi is connected, proceed with sending data
     WiFiClient client;
     HTTPClient http;
 
@@ -278,7 +278,7 @@ void insertPatientVitals() {
     httpPOST += String(heartRate);
     httpPOST += "&body_temp=";
     httpPOST += String(tempC);
-    // Your Domain name with URL path or IP address with path
+    // Your Domain name with URL path or IP address with path // Begin HTTP request to the server
     http.begin(client, httpPOST);
 
     // Data to send with HTTP POST
@@ -287,13 +287,14 @@ void insertPatientVitals() {
     // Send HTTP POST request
     int httpResponseCode = http.POST(httpRequestData);
 
-    Serial.print("HTTP Response code: ");
+    Serial.print("HTTP Response code: ");  // Print HTTP response code to serial monitor
     Serial.println(httpResponseCode);
 
-    // Free resources
+    // Free resources after completing HTTP request
     http.end();
   } else {
-    Serial.println("WiFi Disconnected");
+    Serial.println("WiFi Disconnected"); // If WiFi is not connected, print a message to the serial monitor
+
   }
 }
 
@@ -307,3 +308,4 @@ void loop() {
   getTempVitals();
   checkVitalsAndActivateBuzzer();
   insertPatientVitals();
+}
