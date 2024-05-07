@@ -87,7 +87,8 @@
 
             // Check if vitals are out of range
             $card_class = ''; // default class
-            if ($body_temp < 36 || $body_temp > 38 || $oxygen_level < 90 || $oxygen_level > 100 || $heart_rate < 60 || $heart_rate > 100) {
+              if ($body_temp < 34 || $body_temp > 38 || $oxygen_level < 90 || $heart_rate < 60 || $heart_rate > 100) {
+
               // If out of range, set the background color to red
               $card_class = 'bg-danger';
               // Add JavaScript to play the beep sound

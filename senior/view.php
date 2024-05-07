@@ -117,7 +117,7 @@ if (isset($_GET['id'])) {
                     // Function to check vital signs and trigger beep sound if out of range
                     function checkVitalSigns(temperature, oxygenLevel, heartRate) {
                         // Check temperature, oxygen level, and heart rate
-                        if (temperature < 34 || temperature > 38 || oxygenLevel < 90 || oxygenLevel > 100 || heartRate < 60 || heartRate > 100) {
+                        if (temperature < 34 || temperature > 38 || oxygenLevel < 90 || heartRate < 60 || heartRate > 100) {
                             // Trigger beep sound
                             document.getElementById('con').style.backgroundColor="red";
                         }
