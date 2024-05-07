@@ -91,9 +91,9 @@
               // If out of range, set the background color to red
               $card_class = 'bg-danger';
               // Add JavaScript to play the beep sound
-              echo '<script>
-                       document.getElementById("beepSound").play();
-                    </script>';
+              // echo '<script>
+              //          document.getElementById("beepSound").play();
+              //       </script>';
             }
 
             // Output patient card

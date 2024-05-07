@@ -3,7 +3,7 @@
 <head>
     <title>
     </title>
-    <link href="login.css" rel="stylesheet">
+    <link href="editstyle.css" rel="stylesheet">
     <script>
         // Function to handle the alert and redirection
         function handleResponse(response) {
@@ -54,23 +54,21 @@ WHERE id = $id";
     $con->close();
     ?>
 
-    <main class="form-signin">
+<div class="wrapper">
         <form method="get">
-
-            <div class="form-floating">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Pateint name" value="<?php echo $name; ?>">
+            <h1>Edit Form</h1>
+            <div class="input-box">
+                <input type="text" placeholder="Paient Name" name="name" class="form-control" id="name" required>
+                <i class='bx bxs-user'></i>
             </div>
-            <div class="form-floating">
-                <input type="text" name="room_no" class="form-control" id="room_no" placeholder="Room number" value="<?php echo $room_no; ?>">
+            <div class="input-box">
+                <input type="text" placeholder="Room Number" name="room_no" class="form-control" id="room_no" required>
+                <i class='bx bxs-clinic' ></i>
             </div>
             <input type="hidden" name="id" value="<?php echo $id; ?>">
-
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Edit</button>
-
-
-            </table>
+            <button type="submit" class="btn">Edit</button>
         </form>
-    </main>
+    </div>
 </body>
 
 </html>
