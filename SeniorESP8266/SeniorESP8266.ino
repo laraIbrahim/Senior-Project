@@ -14,6 +14,9 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);  // set the LCD address to 0x27 for a 16 cha
 
 PulseOximeter pox;
 uint32_t tsLastReport = 0;
+unsigned long currentMillis = millis();  // millis() It returns the number of milliseconds elapsed since it reached getPOXVitals
+unsigned long previousMillis = millis();
+int interval = 0;
 double spO2 = 0.0;
 int heartRate = 0;
 
@@ -51,8 +54,8 @@ float tempC;
 
 
 
-const char* ssid = "";
-const char* password = "";
+const char* ssid = "installVirusCable.exe";
+const char* password = "71583726aa";
 
 //Your Domain name with URL path or IP address with path
 String httpPOST = "";
@@ -65,6 +68,16 @@ unsigned long lastTime = 0;
 //unsigned long timerDelay = 600000;
 // Set timer to 5 seconds (5000)
 unsigned long timerDelay = 5000;
+
+bool readID = false;
+
+void ICACHE_RAM_ATTR isr() {
+  int key = keypad.getKey();
+  Serial.println(key);
+  if (key == 0) {
+    readID = true;
+  }
+}
 
 void setup() {
   Serial.begin(9600);
@@ -88,7 +101,8 @@ void setup() {
 }
 
 void getPatientIdByKeypad() {
-  // pinMode(D7, INPUT);
+  detachInterrupt(D8);
+  pinMode(D7, INPUT);
   keypadCounter = 1;
   key = ' ';
   lcd.setCursor(0, 0);
@@ -170,8 +184,8 @@ void getPatientIdByKeypad() {
   lcd.setCursor(12, 0);
   lcd.print(id);
   lcd.setCursor(18, 0);
-  lcd.print("OK");
   Serial.println("ID Entered");
+  attachInterrupt(D8, isr, FALLING);
 }
 
 void getPOXVitals() {
@@ -183,10 +197,10 @@ void getPOXVitals() {
     Serial.println("INITIALIZED");  // If initialization succeeds, print a confirmation message
   }
   pox.setIRLedCurrent(MAX30102_LED_CURR_14_2MA);  // The default current for the IR LED is 50mA and is changed here to 14
-  unsigned long currentMillis = millis();         // millis() It returns the number of milliseconds elapsed since it reached getPOXVitals
-  unsigned long previousMillis = millis();
-  int interval = 30000;                                 // Set reporting interval to 30 seconds
-  while (currentMillis - previousMillis <= interval) {  // Loop to continuously update sensor readings
+  currentMillis = millis();                       // millis() It returns the number of milliseconds elapsed since it reached getPOXVitals
+  previousMillis = millis();
+  interval = 30000;                                                        // Set reporting interval to 30 seconds
+  while (currentMillis - previousMillis <= interval && readID == false) {  // Loop to continuously update sensor readings
     // Make sure to call update as fast as possible
     pox.update();
     // long irValue = pox.getHeartRate();
@@ -216,9 +230,7 @@ void getPOXVitals() {
       lcd.setCursor(6, 2);
       lcd.print(heartRate);
       lcd.setCursor(18, 1);
-      lcd.print("OK");
       lcd.setCursor(18, 2);
-      lcd.print("OK");
 
       tsLastReport = millis();
     }
@@ -239,7 +251,6 @@ void getTempVitals() {  //reading the temperature from a temperature sensor, dis
   lcd.print(tempC);
   lcd.print(" C");
   lcd.setCursor(18, 3);
-  lcd.print("OK");
 
   Serial.println("Temperature Reading Done");
   Serial.print("Temperature: ");
@@ -254,24 +265,27 @@ void checkVitalsAndActivateBuzzer() {  //monitor the vital signs of a patient an
     Serial.print(spO2);
     Serial.print(" Heart Rate: ");
     Serial.println(heartRate);
+    // detachInterrupt(D7);
     pinMode(D7, OUTPUT);
     digitalWrite(D7, HIGH);  //turn buzzer on
     Serial.println("Buzzer On");
     delay(2000);            //2 seconds
     digitalWrite(D7, LOW);  //turn buzzer off
     Serial.println("Buzzer Off");
-    delay(2000);
-    digitalWrite(D7, HIGH);  //turn buzzer on
-    Serial.println("Buzzer On");
-    delay(2000);            //2 seconds
-    digitalWrite(D7, LOW);  //turn buzzer off
-    Serial.println("Buzzer Off");
-    delay(2000);
-    digitalWrite(D7, HIGH);  //turn buzzer on
-    Serial.println("Buzzer On");
-    delay(2000);            //2 seconds
-    digitalWrite(D7, LOW);  //turn buzzer off
-    Serial.println("Buzzer Off");
+    pinMode(D7, INPUT);
+    // attachInterrupt(D7, isr, HIGH);
+    // delay(2000);
+    // digitalWrite(D7, HIGH);  //turn buzzer on
+    // Serial.println("Buzzer On");
+    // delay(2000);            //2 seconds
+    // digitalWrite(D7, LOW);  //turn buzzer off
+    // Serial.println("Buzzer Off");
+    // delay(2000);
+    // digitalWrite(D7, HIGH);  //turn buzzer on
+    // Serial.println("Buzzer On");
+    // delay(2000);            //2 seconds
+    // digitalWrite(D7, LOW);  //turn buzzer off
+    // Serial.println("Buzzer Off");
   }
 }
 
@@ -289,7 +303,7 @@ void insertPatientVitals() {  // this function handles the process of sending pa
     httpPOST += "&heart_rate=";
     httpPOST += String(heartRate);
     httpPOST += "&body_temp=";
-    httpPOST += String(tempC);
+    httpPOST += String(tempC,2);
     // Your Domain name with URL path or IP address with path // Begin HTTP request to the server
     http.begin(client, httpPOST);
 
@@ -310,13 +324,21 @@ void insertPatientVitals() {  // this function handles the process of sending pa
 }
 
 void loop() {
+
+  if (readID) {
+    id = 0;
+    readID = false;
+    Serial.println("readID");
+  }
   if (id == 0) {
     lcd.clear();
     getPatientIdByKeypad();
   }
 
   getPOXVitals();
-  getTempVitals();
-  checkVitalsAndActivateBuzzer();
-  insertPatientVitals();
+  if (readID == false) {
+    getTempVitals();
+    checkVitalsAndActivateBuzzer();
+    insertPatientVitals();
+  }
 }
