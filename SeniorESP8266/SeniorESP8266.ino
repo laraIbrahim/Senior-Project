@@ -54,8 +54,8 @@ float tempC;
 
 
 
-const char* ssid = "installVirusCable.exe";
-const char* password = "71583726aa";
+const char* ssid = "";
+const char* password = "";
 
 //Your Domain name with URL path or IP address with path
 String httpPOST = "";
