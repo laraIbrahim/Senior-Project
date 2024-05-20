@@ -52,7 +52,6 @@
         <form class="form-inline">
           <button class="btn btn-outline-light" type="button" onclick="window.location='login.php';">Logout</button>
           <button class="btn btn-outline-light" type="button" onclick="window.location='addPatients.php';">Add Patients</button>
-          <button class="btn btn-outline-light" type="button" onclick="window.location='bar.php';">view as bars</button>
 
         </form>
       </div>
@@ -93,10 +92,6 @@
 
               // If out of range, set the background color to red
               $card_class = 'bg-danger';
-              // Add JavaScript to play the beep sound
-              // echo '<script>
-              //          document.getElementById("beepSound").play();
-              //       </script>';
             }
 
             // Output patient card
@@ -119,6 +114,8 @@
             echo '<a href="' . $viewUrl . '" class="btn btn-light">View</a>';
             $editUrl = 'edit.php?id=' . $row['id'];
             echo '<a href="' . $editUrl . '" class="btn btn-light">Edit</a>';
+            $barUrl = 'bar.php?id=' . $row['id'];
+            echo '<a href="' . $barUrl . '" class="btn btn-light">view as bars</a>';
             echo '</div>';
             echo '<div>';
             echo '<p>' . $row['room_no'] . '</p>';

@@ -29,6 +29,8 @@ if (isset($_GET['id'])) {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Patient Details</title>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                <link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
                 <style>
                     body {
                         font-family: Arial, sans-serif;
@@ -86,7 +88,7 @@ if (isset($_GET['id'])) {
             <body>
                 <div class="container" id="con">
                     <h1 style="text-align: center;">Patient Details</h1>
-                    <div class="details" >
+                    <div class="details">
                         <div class="item">
                             <span class="label"><i class="fas fa-id-badge icon"></i></span>
                             <span class="value"><?php echo $patient_id; ?></span>
@@ -112,6 +114,11 @@ if (isset($_GET['id'])) {
                             <span class="value"><?php echo $body_temp; ?></span>
                         </div>
                     </div>
+                    <?php
+                    $barUrl = 'bar.php?id=' . $row['id'];
+                    echo '<a href="' . $barUrl . '" class="btn btn-outline-primary">view as bars</a>';
+                    ?>
+
                 </div>
                 <script>
                     // Function to check vital signs and trigger beep sound if out of range
@@ -119,14 +126,14 @@ if (isset($_GET['id'])) {
                         // Check temperature, oxygen level, and heart rate
                         if (temperature < 34 || temperature > 38 || oxygenLevel < 90 || heartRate < 60 || heartRate > 100) {
                             // Trigger beep sound
-                            document.getElementById('con').style.backgroundColor="red";
+                            document.getElementById('con').style.backgroundColor = "red";
                         }
                     }
                     // Call the function with the provided vital signs
                     checkVitalSigns(<?php echo $body_temp; ?>, <?php echo $oxygen_level; ?>, <?php echo $heart_rate; ?>);
                 </script>
                 <script>
-                  //  Refresh the page every 15 seconds
+                    //  Refresh the page every 15 seconds
                     setInterval(function() {
                         location.reload();
                     }, 15000);
