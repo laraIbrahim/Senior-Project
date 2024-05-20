@@ -75,7 +75,7 @@ if (isset($_GET['id'])) {
                         // Chart for Body Temperature
                         var temperatureChartCanvas = document.getElementById('temperatureChart').getContext('2d');
                         var temperatureChart = new Chart(temperatureChartCanvas, {
-                            type: 'line',
+                            type: 'bar',
                             data: {
                                 labels: ['Body Temperature'],
                                 datasets: [{
@@ -98,7 +98,7 @@ if (isset($_GET['id'])) {
                         // Chart for Oxygen Level
                         var oxygenLevelChartCanvas = document.getElementById('oxygenLevelChart').getContext('2d');
                         var oxygenLevelChart = new Chart(oxygenLevelChartCanvas, {
-                            type: 'line',
+                            type: 'bar',
                             data: {
                                 labels: ['Oxygen Level'],
                                 datasets: [{
@@ -121,7 +121,7 @@ if (isset($_GET['id'])) {
                         // Chart for Heart Rate
                         var heartRateChartCanvas = document.getElementById('heartRateChart').getContext('2d');
                         var heartRateChart = new Chart(heartRateChartCanvas, {
-                            type: 'line',
+                            type: 'bar',
                             data: {
                                 labels: ['Heart Rate'],
                                 datasets: [{
