@@ -77,11 +77,21 @@
           <?php
           require_once 'connect.php';
 
-          $getPatientData = "SELECT * FROM patients";
+          $getPatientData = "SELECT p.id, p.name, sv.body_temp, sv.heart_rate, sv.oxygen_level, sv.time
+          FROM patients p
+          JOIN savedvalues sv ON p.id = sv.patient_id
+          WHERE (sv.patient_id, sv.time) IN (
+              SELECT patient_id, MAX(time)
+              FROM savedvalues
+              GROUP BY patient_id
+          );
+          ";
           $result = mysqli_query($con, $getPatientData);
 
           while ($row = mysqli_fetch_assoc($result)) {
             // Store vital signs for the current patient
+            $id=$row['id'];
+            $name = $row['name'];
             $oxygen_level = $row['oxygen_level'];
             $heart_rate = $row['heart_rate'];
             $body_temp = $row['body_temp'];
@@ -100,7 +110,7 @@
             echo '<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">';
             echo '<title>Placeholder</title>';
             echo '<rect width="100%" height="100%" fill="' . ($card_class ? 'red' : '#7E89FD') . '"></rect>';
-            echo '<text x="50%" y="20%" fill="#eceeef" text-anchor="middle" font-size="16" dy=".3em">Name: ' . $row['name'] . '</text>';
+            echo '<text x="50%" y="20%" fill="#eceeef" text-anchor="middle" font-size="16" dy=".3em">Name: '.$name.'</text>';
             echo '<text x="50%" y="40%" fill="#eceeef" text-anchor="middle" font-size="16" dy=".3em">Oxygen Level: ' . $oxygen_level . '</text>';
             echo '<text x="50%" y="60%" fill="#eceeef" text-anchor="middle" font-size="16" dy=".3em">Heart Rate: ' . $heart_rate . '</text>';
             echo '<text x="50%" y="80%" fill="#eceeef" text-anchor="middle" font-size="16" dy=".3em">Body Temperature: ' . $body_temp . '</text>';
@@ -110,15 +120,14 @@
             echo '<div class="card-body">';
             echo '<div class="d-flex justify-content-between align-items-center">';
             echo '<div class="btn-group">';
-            $viewUrl = 'view.php?id=' . $row['id'];
+            $viewUrl = 'view.php?id=' . $id;
             echo '<a href="' . $viewUrl . '" class="btn btn-light">View</a>';
-            $editUrl = 'edit.php?id=' . $row['id'];
+            $editUrl = 'edit.php?id=' . $id;
             echo '<a href="' . $editUrl . '" class="btn btn-light">Edit</a>';
-            $barUrl = 'bar.php?id=' . $row['id'];
-            echo '<a href="' . $barUrl . '" class="btn btn-light">view as bars</a>';
+            $barUrl = 'charts.php?id=' . $id;
+            echo '<a href="' . $barUrl . '" class="btn btn-light">view as charts</a>';
             echo '</div>';
             echo '<div>';
-            echo '<p>' . $row['room_no'] . '</p>';
             echo '</div>';
             echo '</div>';
             echo '</div>'; // Close card-body

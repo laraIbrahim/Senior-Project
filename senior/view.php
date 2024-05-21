@@ -6,19 +6,22 @@ if (isset($_GET['id'])) {
     $patient_id = $_GET['id'];
 
     // Prepare SQL statement to select patient details
-    $sql = "SELECT * FROM patients WHERE id = $patient_id";
+    $sql = "SELECT p.*, sv.body_temp, sv.heart_rate, sv.oxygen_level
+    FROM patients p
+    JOIN savedvalues sv ON p.id = sv.patient_id
+    WHERE p.id = $patient_id
+    ORDER BY sv.time DESC
+    LIMIT 1";
     $result = $con->query($sql);
 
     if ($result->num_rows > 0) {
-        // Output data of each row
+        // Output data of the row
         while ($row = $result->fetch_assoc()) {
             $name = $row['name'];
             $room_no = $row['room_no'];
-            $oxygen_level = $row['oxygen_level'];
-            $heart_rate = $row['heart_rate'];
             $body_temp = $row['body_temp'];
-
-            // Display patient details using HTML
+            $heart_rate = $row['heart_rate'];
+            $oxygen_level = $row['oxygen_level'];
 ?>
 
             <!DOCTYPE html>
@@ -115,8 +118,8 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                     <?php
-                    $barUrl = 'bar.php?id=' . $row['id'];
-                    echo '<a href="' . $barUrl . '" class="btn btn-outline-primary">view as bars</a>';
+                    $barUrl = 'charts.php?id=' . $row['id'];
+                    echo '<a href="' . $barUrl . '" class="btn btn-outline-primary">view as charts</a>';
                     ?>
 
                 </div>

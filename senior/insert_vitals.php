@@ -10,9 +10,9 @@ if (isset($_GET['id'], $_GET['oxygen_level'], $_GET['heart_rate'], $_GET['body_t
     $body_temp = $_GET['body_temp'];
 
     // Prepare SQL statement to insert data
-    $sql = "UPDATE patients
-SET oxygen_level = '$oxygen_level', heart_rate = '$heart_rate', body_temp = '$body_temp'
-WHERE id = $id";
+
+    $sql = "INSERT INTO savedvalues (patient_id, body_temp, heart_rate, oxygen_level, time) 
+VALUES ($id, $body_temp, $heart_rate, $oxygen_level, NOW())";
 
     // Execute SQL statement
     if ($con->query($sql) === TRUE) {
