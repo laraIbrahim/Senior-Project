@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2024 at 11:57 AM
+-- Generation Time: May 21, 2024 at 09:25 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -30,24 +30,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `patients` (
   `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `room_no` int(11) NOT NULL,
-  `oxygen_level` int(11) DEFAULT NULL,
-  `heart_rate` int(11) DEFAULT NULL,
-  `body_temp` int(11) DEFAULT NULL
+  `room_no` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`id`, `name`, `room_no`, `oxygen_level`, `heart_rate`, `body_temp`) VALUES
-(1000, 'jess', 310, 85, 170, 35),
-(1002, 'Mostapha', 4646, NULL, NULL, NULL),
-(1003, 'Mark', 1025, NULL, NULL, NULL),
-(1004, 'moe', 602, NULL, NULL, NULL),
-(1008, 'lara', 805, NULL, NULL, NULL),
-(1009, 'mar', 405, NULL, NULL, NULL),
-(1010, 'p', 806, NULL, NULL, NULL);
+INSERT INTO `patients` (`id`, `name`, `room_no`) VALUES
+(1, 'lara', 105),
+(2, 'MOE', 505),
+(3, 'mar ', 205),
+(4, 'rayan', 805),
+(5, 'rouaa', 666);
 
 --
 -- Indexes for dumped tables
@@ -67,7 +62,7 @@ ALTER TABLE `patients`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1011;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
