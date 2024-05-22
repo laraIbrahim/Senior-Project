@@ -17,7 +17,7 @@ if (isset($_GET['name'], $_GET['roomNb'])) {
     } else {
         // Room number is available, proceed with inserting data
         // Prepare SQL statement to insert data
-        $sql = "INSERT INTO patients(id, name, room_no, oxygen_level, heart_rate, body_temp) VALUES (NULL,'$name','$roomNb',NULL,NULL,NULL)";
+        $sql = "INSERT INTO patients(id, name,room_no) VALUES (NULL,'$name','$roomNb')";
 
         // Execute SQL statement
         if ($con->query($sql) === TRUE) {

@@ -77,7 +77,7 @@
           <?php
           require_once 'connect.php';
 
-          $getPatientData = "SELECT p.id, p.name, sv.body_temp, sv.heart_rate, sv.oxygen_level, sv.time
+          $getPatientData = "SELECT p.*, sv.body_temp, sv.heart_rate, sv.oxygen_level, sv.time
           FROM patients p
           JOIN savedvalues sv ON p.id = sv.patient_id
           WHERE (sv.patient_id, sv.time) IN (
@@ -92,6 +92,7 @@
             // Store vital signs for the current patient
             $id=$row['id'];
             $name = $row['name'];
+            $room_no=$row['room_no'];
             $oxygen_level = $row['oxygen_level'];
             $heart_rate = $row['heart_rate'];
             $body_temp = $row['body_temp'];
