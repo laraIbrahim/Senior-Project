@@ -54,11 +54,11 @@ $con->close();
         <form method="get">
             <h1>Add Patients Form</h1>
             <div class="input-box">
-                <input type="text" placeholder="Paient Name" name="name" class="form-control" id="name" required>
+                <input type="text" placeholder="Paient Name" name="name" class="form-control" id="name" required style="color: black;"> 
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="text" placeholder="Room Number" name="roomNb" class="form-control" id="roomNb" required>
+                <input type="text" placeholder="Room Number" name="roomNb" class="form-control" id="roomNb" required style="color: black;">
                 <i class='bx bxs-clinic' ></i>
             </div>
            

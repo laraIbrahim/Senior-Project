@@ -118,8 +118,8 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                     <?php
-                    $barUrl = 'charts.php?id=' . $row['id'];
-                    echo '<a href="' . $barUrl . '" class="btn btn-outline-primary">view as charts</a>';
+                    $chartsUrl = 'charts.php?id=' . $row['id'];
+                    echo '<a href="' . $chartsUrl . '" class="btn btn-outline-primary">view as charts</a>';
                     ?>
 
                 </div>
@@ -127,7 +127,7 @@ if (isset($_GET['id'])) {
                     // Function to check vital signs and trigger beep sound if out of range
                     function checkVitalSigns(temperature, oxygenLevel, heartRate) {
                         // Check temperature, oxygen level, and heart rate
-                        if (temperature < 34 || temperature > 38 || oxygenLevel < 90 || heartRate < 60 || heartRate > 100) {
+                        if (temperature < 34 || temperature > 38 || oxygenLevel < 90 || heartRate < 60 || heartRate > 110) {
                             // Trigger beep sound
                             document.getElementById('con').style.backgroundColor = "red";
                         }

@@ -109,7 +109,6 @@
             echo '<div class="col">';
             echo '<div class="card shadow-sm">';
             echo '<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">';
-            echo '<title>Placeholder</title>';
             echo '<rect width="100%" height="100%" fill="' . ($card_class ? 'red' : '#7E89FD') . '"></rect>';
             echo '<text x="50%" y="20%" fill="#eceeef" text-anchor="middle" font-size="16" dy=".3em">Name: '.$name.'</text>';
             echo '<text x="50%" y="40%" fill="#eceeef" text-anchor="middle" font-size="16" dy=".3em">Oxygen Level: ' . $oxygen_level . '</text>';
@@ -125,8 +124,8 @@
             echo '<a href="' . $viewUrl . '" class="btn btn-light">View</a>';
             $editUrl = 'edit.php?id=' . $id;
             echo '<a href="' . $editUrl . '" class="btn btn-light">Edit</a>';
-            $barUrl = 'charts.php?id=' . $id;
-            echo '<a href="' . $barUrl . '" class="btn btn-light">view as charts</a>';
+            $chartUrl = 'charts.php?id=' . $id;
+            echo '<a href="' . $chartUrl . '" class="btn btn-light">view as charts</a>';
             echo '</div>';
             echo '<div>';
             echo '</div>';

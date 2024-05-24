@@ -54,23 +54,25 @@ if (isset($_GET['id'])) {
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 80%;
-            max-width: 400px;
+            width: 100%;
+            height: 80vh; /* Fixed height for the container */
+            overflow-y: auto; 
         }
 
         canvas {
             margin-bottom: 20px;
             background-color: whitesmoke;
         }
+
     </style>
 </head>
 
 <body>
     <div class="container" id="con">
         <h1 style="text-align: center;">Patient Details</h1>
-        <canvas id="temperatureChart" width="400" height="200"></canvas>
-        <canvas id="oxygenLevelChart" width="400" height="200"></canvas>
-        <canvas id="heartRateChart" width="400" height="200"></canvas>
+        <canvas id="temperatureChart" width="500" height="200"></canvas>
+        <canvas id="oxygenLevelChart" width="500" height="200"></canvas>
+        <canvas id="heartRateChart" width="500" height="200"></canvas>
     </div>
     <script>
         // PHP arrays passed to JavaScript
